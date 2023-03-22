@@ -18,6 +18,11 @@ Additional features ( to be added? )
 - [ ] Setup: Automated watering
 
 ## Setup
+TLDR
+```
+pip install tensorflow tensorflow-hub matplotlib numpy Pillow keras pandas
+```
+
 OpenCV currently `19/3/2023` only supports up until Python 3.9, so it is recommended to have a Python 3.9 installation for this to run properly.
 
 Tensorflow will make use of your GPU if it is compatible with the correct packages installed. Read more [here](https://www.tensorflow.org/install/pip).

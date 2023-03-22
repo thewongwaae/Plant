@@ -1,3 +1,6 @@
+import tkinter as tk
+import matplotlib
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import numpy as np
 import PIL
@@ -28,7 +31,7 @@ print(image_count)
 
 # For smaller datasets, batch size of 32 with 50 epochs is a good range
 # For bigger ones, size 10 with 50 ~ 100 epochs should do
-batch_size = 32
+batch_size = 20
 # Need standardized image dimensions for easier training
 height = 180
 width = 180
@@ -108,7 +111,7 @@ model.compile(
 )
 
 # Train the model
-epochs = 50
+epochs = 10
 
 history = model.fit(
   training_dataset,
@@ -141,4 +144,4 @@ plt.show()
 
 
 
-# Reinforcement learning?
+# Haven't tested on Mac yet
