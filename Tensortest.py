@@ -48,9 +48,11 @@ while(True):
 	img_boxes = rgb
 
 	for score, (ymin,xmin,ymax,xmax), label in zip(arr_scores, arr_boxes, arr_labels):
+		# if match score too low, skip
 		if score < 0.65:
 			continue
 		
+		# draw box and display classificaiton label
 		score_txt = f'{100 * round(score,0)}'
 		img_boxes = cv.rectangle(rgb,(xmin, ymax),(xmax, ymin),(0,255,0),1)      
 		font = cv.FONT_HERSHEY_SIMPLEX
