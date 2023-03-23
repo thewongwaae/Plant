@@ -1,7 +1,7 @@
 import tkinter as tk
 import matplotlib
-matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
+plt.switch_backend('TkAgg')
 import numpy as np
 import PIL
 import tensorflow as tf
@@ -144,4 +144,4 @@ plt.show()
 
 
 
-# Haven't tested on Mac yet
+# Apparently the win version works on mac just fine
