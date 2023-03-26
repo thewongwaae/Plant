@@ -4,7 +4,7 @@
 Looking to automate observation of plants under the care of busy humans such as us programmers, thus we must spend hours working on something that helps us complicate gardening ourselves.
 
 ## The Plan
-- Raspbery Pi equipped with a camera
+- Raspberry Pi equipped with a camera
 - Object detection (Plant classification) Tensorflow model on the setup
 - Get plant health updates through an app
 
