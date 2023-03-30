@@ -112,14 +112,15 @@ model.compile(
 
 # Train the model
 epochs = 10
-
 history = model.fit(
   training_dataset,
   validation_data=validation_dataset,
   epochs=epochs
 )
 
+
 # Plot loss and accuracy on training and validation
+
 # acc = history.history['accuracy']
 # val_acc = history.history['val_accuracy']
 
