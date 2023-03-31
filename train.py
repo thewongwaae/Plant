@@ -25,6 +25,8 @@ train_ds = tf.keras.utils.image_dataset_from_directory(
 	batch_size=batch_size
 )
 
+class_names = train_ds.class_names
+
 val_ds = tf.keras.utils.image_dataset_from_directory(
 	data_dir,
 	validation_split=0.2,
@@ -56,12 +58,10 @@ model = Sequential([
 	layers.MaxPooling2D(),
 	layers.Conv2D(64, 3, padding='same', activation='relu'),
 	layers.MaxPooling2D(),
-	layers.Conv2D(128, 3, padding='same', activation='relu'),
-	layers.MaxPooling2D(),
 	layers.Flatten(),
-	layers.Dense(256, activation='relu'),
+	layers.Dense(128, activation='relu'),
 	Dropout(0.5),
-	layers.Dense(len(train_ds.class_names), name="outputs")
+	layers.Dense(len(class_names), name="outputs")
 ])
 
 # Compile the model
@@ -73,7 +73,7 @@ model.compile(
 )
 
 # Train the model
-epochs = 30
+epochs = 10
 history = model.fit(
   train_ds,
   validation_data=val_ds,

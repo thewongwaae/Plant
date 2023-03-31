@@ -26,6 +26,8 @@ train_ds = tf.keras.utils.image_dataset_from_directory(
 	batch_size=batch_size
 )
 
+class_names = train_ds.class_names
+
 val_ds = tf.keras.utils.image_dataset_from_directory(
 	data_dir,
 	validation_split=0.2,
@@ -56,7 +58,7 @@ model = Sequential([
 	base_model,
 	GlobalAveragePooling2D(),
 	layers.Dense(128, activation='relu'),
-	layers.Dense(len(train_ds.class_names), name="outputs")
+	layers.Dense(len(class_names), name="outputs")
 ])
 
 base_model.trainable = False
@@ -70,7 +72,7 @@ model.compile(
 )
 
 # Train the model
-epochs = 30
+epochs = 10
 history = model.fit(
   train_ds,
   validation_data=val_ds,
