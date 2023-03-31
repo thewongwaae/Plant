@@ -9,18 +9,18 @@ model = tf.keras.models.load_model("trained/")
 # Normalize the image input
 def preprocess(image, height, width):
 	resized = cv.resize(image, (width, height))
-	normalized = resized / 255.0
+	normalized = np.array(resized, dtype=np.float32) / 255.0
 	input_data = np.expand_dims(normalized, axis=0)
 	return input_data
 
 # Use trained model to classify the image based on trained
 def process(image, model, height, width, threshold):
+	global i
 	input_data = preprocess(image, height, width)
 	prediction = model.predict(input_data)
 	if prediction[0][0] >= threshold:
-		cv.imwrite("predictions/file" + i + ".jpg", image)
-
-
+		cv.imwrite("predictions/file" + str(i) + ".jpg", image)
+	i = i + 1
 
 height = 256
 width = 256

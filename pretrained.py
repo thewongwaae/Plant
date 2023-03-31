@@ -2,8 +2,9 @@ import pathlib
 import numpy as np
 import tensorflow as tf
 from keras import layers
-from keras.layers import Dropout
+from keras.layers import GlobalAveragePooling2D
 from keras.models import Sequential
+from keras.applications import EfficientNetV2M
 
 # Download and prepare the dataset
 dataset_url = "https://storage.googleapis.com/download.tensorflow.org/example_images/flower_photos.tgz"
@@ -46,23 +47,19 @@ augment = Sequential([
 	layers.RandomZoom(0.1)
 ])
 
-# Build the model
+base_model = EfficientNetV2M(input_shape=(height, width, 3), include_top=False)
+
+# Fine-tune the pre-trained model
 model = Sequential([
 	augment,
 	layers.Rescaling(1./255),
-	layers.Conv2D(16, 3, padding='same', activation='relu'),
-	layers.MaxPooling2D(),
-	layers.Conv2D(32, 3, padding='same', activation='relu'),
-	layers.MaxPooling2D(),
-	layers.Conv2D(64, 3, padding='same', activation='relu'),
-	layers.MaxPooling2D(),
-	layers.Conv2D(128, 3, padding='same', activation='relu'),
-	layers.MaxPooling2D(),
-	layers.Flatten(),
-	layers.Dense(256, activation='relu'),
-	Dropout(0.5),
+	base_model,
+	GlobalAveragePooling2D(),
+	layers.Dense(128, activation='relu'),
 	layers.Dense(len(train_ds.class_names), name="outputs")
 ])
+
+base_model.trainable = False
 
 # Compile the model
 model.compile(
@@ -81,4 +78,4 @@ history = model.fit(
 )
 
 # Save the model
-model.save("trained/")
+model.save("pretrained/")
